@@ -22,13 +22,14 @@ export const authMiddleware = (req, res, next) => {
 
 export const authorizeAuthor = async (req, res, next) => {
     const id = req.params.id;
+    const { user } = req;
     const blog = await Blog.findById(id);
     if (!blog) {
         return res.status(404).json({
             message: "Blog not found"
         })
     }
-    if (blog.author.toString() !== req.user._id) {
+    if (blog.author.toString() !== user._id) {
         return res.status(403).json({
             message: "User not authorized"
         })
@@ -36,12 +37,12 @@ export const authorizeAuthor = async (req, res, next) => {
     next();
 }
 
-export const authorizeAdmin = async (req, res,next) => {
+export const authorizeAdmin = async (req, res, next) => {
     const { _id } = req.user;
     const user = await User.findById(_id);
-    if (user.role !== 'admin') { 
+    if (user.role !== 'admin') {
         return res.status(403).json({
-            message:"Only admin can create categories"
+            message: "Only admin can create categories"
         })
     }
     next();

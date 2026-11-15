@@ -8,7 +8,7 @@ export const createBlog = async (req, res) => {
         const { title, content, excerpt, category } = req.body;
         const blogWithSameName = await Blog.findOne({ title });
         if (blogWithSameName) {
-            return res.status(403).json({
+            return res.status(409).json({
                 message: "Blog with same title exists"
             })
         }
