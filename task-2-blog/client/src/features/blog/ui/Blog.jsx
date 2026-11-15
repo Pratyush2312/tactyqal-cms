@@ -54,7 +54,7 @@ const Blogs = () => {
           </h1>
 
           <p className="mt-2 text-sm text-[#777b76] sm:mt-3">
-            Create, edit and manage your published content.
+            Create, and manage your published content.
           </p>
         </div>
 
@@ -157,24 +157,6 @@ const Blogs = () => {
                         {formatDate(blog.publishedAt || blog.createdAt)}
                       </p>
                     </div>
-
-                    <div className="flex shrink-0 items-center gap-4">
-                      <Link
-                        to={`/dashboard/blogs/edit/${blog._id}`}
-                        title="Edit article"
-                        aria-label="Edit article"
-                        className="text-[#92958f] transition hover:text-[#a18a5b]">
-                        <LuPencil size={18} />
-                      </Link>
-
-                      <button
-                        onClick={() => handleDelete(blog._id)}
-                        title="Delete article"
-                        aria-label="Delete article"
-                        className="text-[#92958f] transition hover:text-red-600">
-                        <LuTrash2 size={18} />
-                      </button>
-                    </div>
                   </div>
                 </article>
               ))}
@@ -214,7 +196,11 @@ const Blogs = () => {
                             </div>
                           )}
 
-                          <div className="max-w-xs min-w-0">
+                          <div
+                            onClick={() =>
+                              navigate(`/dashboard/blogs/${blog.slug}`)
+                            }
+                            className="max-w-xs min-w-0 cursor-pointer">
                             <p className="truncate text-sm font-medium">
                               {blog.title}
                             </p>
@@ -238,23 +224,7 @@ const Blogs = () => {
                       </td>
 
                       <td className="px-4 py-5 lg:px-6">
-                        <div className="flex items-center justify-end gap-3">
-                          <Link
-                            to={`/dashboard/blogs/edit/${blog._id}`}
-                            title="Edit article"
-                            aria-label="Edit article"
-                            className="text-[#92958f] transition hover:text-[#a18a5b]">
-                            <LuPencil size={17} />
-                          </Link>
-
-                          <button
-                            onClick={() => handleDelete(blog._id)}
-                            title="Delete article"
-                            aria-label="Delete article"
-                            className="text-[#92958f] transition hover:text-red-600">
-                            <LuTrash2 size={17} />
-                          </button>
-                        </div>
+                        <div className="flex items-center justify-end gap-3"></div>
                       </td>
                     </tr>
                   ))}
